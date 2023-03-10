@@ -2,7 +2,9 @@
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +17,7 @@ import com.projectmanagement.exceptions.ResourceNotFoundException;
 import com.projectmanagement.service.AdminService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -26,7 +29,7 @@ public class AdminController {
 		return new ResponseEntity<>(adminService.addAdmin(admin), HttpStatus.CREATED);
 	}
 
-	@PostMapping("authenticate-admin/{userName}/{password}")
+	@PostMapping( path="authenticate-admin/{userName}/{password}", consumes = {MediaType.ALL_VALUE})
 	public ResponseEntity<?> authenticateAdmin(@PathVariable String userName, @PathVariable String password)
 			throws Exception {
 		return ResponseEntity.ok(adminService.authenticateAdmin(userName, password));

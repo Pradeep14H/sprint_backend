@@ -2,7 +2,9 @@ package com.projectmanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import com.projectmanagement.exceptions.ResourceNotFoundException;
 import com.projectmanagement.service.TaskService;
 
 @RestController
+@CrossOrigin(origins="*")
 public class TaskController {
 
 	@Autowired
@@ -27,7 +30,7 @@ public class TaskController {
 		return ResponseEntity.ok(taskService.getTaskById(id));
 	}
 
-	@PostMapping("/admin/add-task")
+	@PostMapping("/admin/add-task" )
 	public ResponseEntity<?> addTask(@RequestBody Task task) throws Exception {
 		return new ResponseEntity<>(taskService.addTask(task), HttpStatus.CREATED);
 	}
